@@ -15,52 +15,23 @@
     --rose-deep: #9a5a63;
     --cream: #faf6f0;
     --gold: #c8a97e;
-    --gold-light: #e8d5b7;
     --text-dark: #3a2a2c;
     --text-mid: #7a5a5e;
     --text-light: #b89aa0;
   }
 
-  html, body {
-    height: 100%;
-    overflow: hidden;
-    background: var(--cream);
-    font-family: 'Jost', sans-serif;
-  }
+  html, body { height: 100%; overflow: hidden; background: var(--cream); font-family: 'Jost', sans-serif; }
 
-  /* ── PAGE SYSTEM ── */
   .page {
-    position: fixed;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     transition: opacity 0.9s cubic-bezier(0.4,0,0.2,1), transform 0.9s cubic-bezier(0.4,0,0.2,1);
     overflow: hidden;
   }
+  .page.hidden { opacity: 0; pointer-events: none; transform: scale(1.04); }
 
-  .page.hidden {
-    opacity: 0;
-    pointer-events: none;
-    transform: scale(1.04);
-  }
-
-  /* ── PETAL BACKGROUND ── */
-  .petals-bg {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-
-  .petal {
-    position: absolute;
-    border-radius: 60% 40% 60% 40%;
-    opacity: 0;
-    animation: fall linear infinite;
-  }
-
+  .petals-bg { position: absolute; inset: 0; overflow: hidden; z-index: 0; }
+  .petal { position: absolute; border-radius: 60% 40% 60% 40%; opacity: 0; animation: fall linear infinite; }
   @keyframes fall {
     0%   { transform: translateY(-60px) rotate(0deg); opacity: 0; }
     10%  { opacity: 0.55; }
@@ -68,239 +39,65 @@
     100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
   }
 
-  /* ── DECORATIVE RING ── */
-  .ring {
-    position: absolute;
-    border-radius: 50%;
-    border: 1px solid var(--rose-light);
-    opacity: 0.5;
-    pointer-events: none;
-  }
+  .ring { position: absolute; border-radius: 50%; border: 1px solid var(--rose-light); opacity: 0.5; pointer-events: none; }
 
-  /* ══════════════════════════════
-       PAGE 1 — LANDING
-  ══════════════════════════════ */
-  #page1 {
-    background: linear-gradient(160deg, #fdf0f1 0%, #faf6f0 55%, #f7ede8 100%);
-  }
+  /* ══ PAGE 1 ══ */
+  #page1 { background: linear-gradient(160deg, #fdf0f1 0%, #faf6f0 55%, #f7ede8 100%); }
 
-  .content1 {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 2rem 2.5rem;
-    text-align: center;
-    gap: 0;
-  }
+  .content1 { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding: 2rem 2.5rem; text-align: center; }
 
-  .eyebrow {
-    font-family: 'Jost', sans-serif;
-    font-weight: 200;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--rose);
-    margin-bottom: 2rem;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.3s forwards;
-  }
+  .eyebrow { font-weight: 200; font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--rose); margin-bottom: 2rem; opacity: 0; animation: fadeUp 1s ease 0.3s forwards; }
 
-  .main-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(3.2rem, 13vw, 5rem);
-    line-height: 1.05;
-    color: var(--text-dark);
-    letter-spacing: -0.01em;
-    margin-bottom: 0.4rem;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.55s forwards;
-  }
+  .main-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: clamp(3.2rem, 13vw, 5rem); line-height: 1.05; color: var(--text-dark); letter-spacing: -0.01em; margin-bottom: 0.4rem; opacity: 0; animation: fadeUp 1s ease 0.55s forwards; }
+  .main-title span { color: var(--rose-deep); display: block; }
 
-  .main-title span {
-    color: var(--rose-deep);
-    display: block;
-  }
+  .divider-line { width: 40px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 1.6rem auto; opacity: 0; animation: fadeUp 1s ease 0.8s forwards; }
 
-  .divider-line {
-    width: 40px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 1.6rem auto;
-    opacity: 0;
-    animation: fadeUp 1s ease 0.8s forwards;
-  }
-
-  .subtitle {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.05rem;
-    font-weight: 300;
-    color: var(--text-mid);
-    line-height: 1.75;
-    max-width: 260px;
-    opacity: 0;
-    animation: fadeUp 1s ease 1s forwards;
-    margin-bottom: 3rem;
-  }
+  .subtitle { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 300; color: var(--text-mid); line-height: 1.75; max-width: 260px; opacity: 0; animation: fadeUp 1s ease 1s forwards; margin-bottom: 3rem; }
 
   .cta-btn {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    padding: 0.85rem 2.2rem;
-    border: 1px solid var(--rose);
-    border-radius: 100px;
-    background: transparent;
-    color: var(--rose-deep);
-    font-family: 'Jost', sans-serif;
-    font-weight: 300;
-    font-size: 0.82rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.4s ease;
-    opacity: 0;
-    animation: fadeUp 1s ease 1.25s forwards;
-    overflow: hidden;
+    position: relative; display: inline-flex; align-items: center; gap: 0.65rem;
+    padding: 0.85rem 2.2rem; border: 1px solid var(--rose); border-radius: 100px;
+    background: transparent; color: var(--rose-deep); font-family: 'Jost', sans-serif;
+    font-weight: 300; font-size: 0.82rem; letter-spacing: 0.18em; text-transform: uppercase;
+    cursor: pointer; transition: all 0.4s ease; opacity: 0; animation: fadeUp 1s ease 1.25s forwards; overflow: hidden;
   }
-
-  .cta-btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--rose);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.4s ease;
-    border-radius: 100px;
-  }
-
+  .cta-btn::before { content: ''; position: absolute; inset: 0; background: var(--rose); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; border-radius: 100px; }
   .cta-btn:hover::before { transform: scaleX(1); }
-  .cta-btn:hover { color: white; border-color: var(--rose); }
-
+  .cta-btn:hover { color: white; }
   .cta-btn span { position: relative; z-index: 1; }
-
-  .cta-arrow {
-    position: relative;
-    z-index: 1;
-    width: 14px;
-    height: 14px;
-    transition: transform 0.3s ease;
-  }
-
+  .cta-arrow { position: relative; z-index: 1; width: 14px; height: 14px; transition: transform 0.3s ease; }
   .cta-btn:hover .cta-arrow { transform: translateX(3px); }
 
-  /* small floating hearts */
-  .float-heart {
-    position: absolute;
-    font-size: 0;
-    width: 6px; height: 6px;
-    background: var(--rose-light);
-    border-radius: 50%;
-    opacity: 0;
-    animation: floatHeart ease-in-out infinite;
-  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
 
-  @keyframes floatHeart {
-    0%, 100% { transform: translateY(0) scale(1); opacity: 0.4; }
-    50%       { transform: translateY(-14px) scale(1.2); opacity: 0.8; }
-  }
+  /* ══ PAGE 2 ══ */
+  #page2 { background: linear-gradient(175deg, #1a0f12 0%, #2c1519 40%, #1e0e10 100%); justify-content: flex-start; }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(18px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  .header2 { position: relative; z-index: 2; width: 100%; padding: 4.5rem 2rem 1.8rem; text-align: center; flex-shrink: 0; }
 
-  /* ══════════════════════════════
-       PAGE 2 — CELEBRATION
-  ══════════════════════════════ */
-  #page2 {
-    background: linear-gradient(175deg, #1a0f12 0%, #2c1519 40%, #1e0e10 100%);
-    justify-content: flex-start;
-  }
+  .header2-eyebrow { font-weight: 200; font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; opacity: 0; transition: opacity 0.8s 0.3s, transform 0.8s 0.3s; transform: translateY(12px); }
+  .header2-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: clamp(2.8rem, 11vw, 4.2rem); line-height: 1.05; color: white; opacity: 0; transition: opacity 0.9s 0.5s, transform 0.9s 0.5s; transform: translateY(14px); margin-bottom: 0.3rem; }
+  .header2-title em { color: var(--rose-light); display: block; font-size: 0.85em; }
+  .gold-line { width: 50px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); margin: 1.2rem auto 0; opacity: 0; transition: opacity 0.8s 0.65s; }
 
-  .header2 {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    padding: 4.5rem 2rem 2rem;
-    text-align: center;
-    flex-shrink: 0;
-  }
+  #page2.active .header2-eyebrow { opacity: 1; transform: translateY(0); }
+  #page2.active .header2-title   { opacity: 1; transform: translateY(0); }
+  #page2.active .gold-line        { opacity: 1; }
 
-  .header2-eyebrow {
-    font-weight: 200;
-    font-size: 0.65rem;
-    letter-spacing: 0.4em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1rem;
-    opacity: 0;
-    transition: opacity 0.8s 0.3s, transform 0.8s 0.3s;
-    transform: translateY(12px);
-  }
-
-  .header2-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-weight: 300;
-    font-size: clamp(2.8rem, 11vw, 4.2rem);
-    line-height: 1.05;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.9s 0.5s, transform 0.9s 0.5s;
-    transform: translateY(14px);
-    margin-bottom: 0.3rem;
-  }
-
-  .header2-title em {
-    color: var(--rose-light);
-    display: block;
-    font-size: 0.85em;
-  }
-
-  .header2-sub {
-    font-weight: 200;
-    font-size: 0.78rem;
-    letter-spacing: 0.2em;
-    color: var(--text-light);
-    opacity: 0;
-    transition: opacity 0.8s 0.75s;
-    margin-top: 0.8rem;
-  }
-
-  .gold-line {
-    width: 50px; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold), transparent);
-    margin: 1.2rem auto 0;
-    opacity: 0;
-    transition: opacity 0.8s 0.65s;
-  }
-
-  #page2.active .header2-eyebrow,
-  #page2.active .header2-title,
-  #page2.active .header2-sub,
-  #page2.active .gold-line {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── SLIDESHOW ── */
+  /* ══ SLIDESHOW ══ */
   .slideshow-wrap {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+    position: relative; z-index: 2;
+    width: 100%; flex: 1;
+    display: flex; flex-direction: column;
     padding: 0 0 2rem;
     min-height: 0;
   }
 
+  /*
+    THE CARD — rounded box with side margins, exactly like the original.
+    overflow:hidden makes it a viewport; images travel across from outside.
+  */
   .slides-container {
     position: relative;
     flex: 1;
@@ -308,169 +105,125 @@
     margin: 0 1.5rem;
     border-radius: 24px;
     box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,126,0.2);
+    background: #1a0d10;
   }
 
+  /* slide is a full-card layer — no transition on the wrapper itself */
   .slide {
     position: absolute;
     inset: 0;
-    opacity: 0;
-    transition: opacity 0.85s cubic-bezier(0.4,0,0.2,1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    border-radius: 24px;
+    overflow: hidden;
   }
 
-  .slide.active { opacity: 1; z-index: 2; }
-  .slide.prev   { opacity: 0; z-index: 1; }
-
+  /*
+    The image moves horizontally using translateX.
+    100vw = full screen width, so it starts completely off-screen
+    regardless of the card's own width.
+  */
   .slide-img {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
     object-fit: cover;
     display: block;
+    will-change: transform;
+    transform: translateX(100vw);      /* default: off-screen right */
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  /* placeholder gradient slides (before real photos added) */
-  .slide-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
+  /* active: image is centred in card */
+  .slide.active .slide-img {
+    transform: translateX(0);
   }
 
-  .placeholder-icon {
-    width: 64px;
-    height: 64px;
-    opacity: 0.35;
+  /* exit to the left */
+  .slide.exit-left .slide-img {
+    transform: translateX(-100vw);
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  .placeholder-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.5);
-    text-align: center;
-    padding: 0 2rem;
-    line-height: 1.6;
+  /* exit to the right (going backwards) */
+  .slide.exit-right .slide-img {
+    transform: translateX(100vw);
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
   }
 
-  /* slide caption overlay */
+  /* waiting off-screen right — no transition so snap is instant */
+  .slide.offscreen-right .slide-img {
+    transform: translateX(100vw);
+    transition: none;
+  }
+
+  /* waiting off-screen left */
+  .slide.offscreen-left .slide-img {
+    transform: translateX(-100vw);
+    transition: none;
+  }
+
+  /* caption fades in once slide is active */
   .slide-caption {
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    padding: 2.5rem 1.5rem 1.5rem;
-    background: linear-gradient(to top, rgba(20,8,10,0.85) 0%, transparent 100%);
-    z-index: 3;
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 3rem 1.5rem 1.5rem;
+    background: linear-gradient(to top, rgba(10,4,6,0.82) 0%, transparent 100%);
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.45s ease 0.28s;
+    pointer-events: none;
   }
+  .slide.active .slide-caption { opacity: 1; }
 
   .slide-caption-text {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1.05rem;
-    color: rgba(255,255,255,0.9);
-    line-height: 1.5;
+    color: rgba(255,255,255,0.92);
+    line-height: 1.55;
+    text-align: center;
   }
 
   /* dots */
-  .dots {
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    padding: 1.1rem 0 0;
-  }
+  .dots { display: flex; gap: 6px; justify-content: center; padding: 1.1rem 0 0; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(200,169,126,0.3); transition: all 0.4s ease; cursor: pointer; }
+  .dot.active { background: var(--gold); width: 20px; border-radius: 3px; }
 
-  .dot {
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: rgba(200,169,126,0.3);
-    transition: all 0.4s ease;
-    cursor: pointer;
-  }
+  /* back btn */
+  .back-btn { position: absolute; top: 1.2rem; left: 1.2rem; z-index: 10; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+  .back-btn:hover { background: rgba(255,255,255,0.13); color: white; }
 
-  .dot.active {
-    background: var(--gold);
-    width: 18px;
-    border-radius: 3px;
-  }
-
-  /* back button */
-  .back-btn {
-    position: absolute;
-    top: 1.2rem;
-    left: 1.2rem;
-    z-index: 10;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.15);
-    color: rgba(255,255,255,0.7);
-    border-radius: 50%;
-    width: 38px; height: 38px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    transition: all 0.3s;
-  }
-
-  .back-btn:hover {
-    background: rgba(255,255,255,0.12);
-    color: white;
-  }
-
-  /* confetti canvas */
-  #confetti-canvas {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 100;
-  }
+  #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 100; }
 </style>
 </head>
 <body>
 
 <canvas id="confetti-canvas"></canvas>
 
-<!-- ══════════════ PAGE 1 ══════════════ -->
+<!-- PAGE 1 -->
 <div class="page" id="page1">
-
-  <!-- floating petals -->
   <div class="petals-bg" id="petals1"></div>
-
-  <!-- decorative rings -->
   <div class="ring" style="width:340px;height:340px;top:-90px;right:-100px;"></div>
   <div class="ring" style="width:200px;height:200px;bottom:60px;left:-70px;opacity:0.3;"></div>
 
   <div class="content1">
     <p class="eyebrow">A gift with love</p>
-
     <h1 class="main-title">
       For the
       <span>one who</span>
       made me
     </h1>
-
     <div class="divider-line"></div>
-
-    <p class="subtitle">
-      There are no words grand enough — but here are a few, just for you.
-    </p>
-
+    <p class="subtitle">There are no words grand enough — but here are a few, just for you.</p>
     <button class="cta-btn" onclick="goToPage2()">
       <span>Open your gift</span>
-      <svg class="cta-arrow" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg class="cta-arrow" viewBox="0 0 14 14" fill="none">
         <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </button>
   </div>
-
 </div>
 
-<!-- ══════════════ PAGE 2 ══════════════ -->
+<!-- PAGE 2 -->
 <div class="page hidden" id="page2">
-
-  <!-- petals on dark -->
   <div class="petals-bg" id="petals2"></div>
 
   <button class="back-btn" onclick="goToPage1()" aria-label="Back">
@@ -486,155 +239,149 @@
       <em>Mother's Day</em>
     </h2>
     <div class="gold-line"></div>
-    <p class="header2-sub">swipe through the memories</p>
   </div>
 
   <div class="slideshow-wrap">
-    <div class="slides-container" id="slidesContainer">
-      <!-- Slides are generated by JS -->
-    </div>
+    <div class="slides-container" id="slidesContainer"></div>
     <div class="dots" id="dots"></div>
   </div>
-
 </div>
 
 <script>
-/* ── SLIDES DATA ──────────────────────────────────
-   Replace the gradient slides with your real photos:
-   { img: 'path/to/photo.jpg', caption: 'your caption' }
-   Or leave as-is for beautiful placeholder art.
-────────────────────────────────────────────────── */
+/*
+  Swap any img URL with your own photo path, e.g. 'mum-birthday.jpg'
+  These are beautiful Unsplash placeholders in the meantime.
+*/
 const slides = [
   {
-    gradient: 'linear-gradient(135deg,#3a1520 0%,#7a3040 50%,#c97b84 100%)',
-    icon: '🌸',
-    caption: 'Add your favourite photo here'
+    img: 'IMG_20241216_222153.jpg',
+    caption: 'Every moment with you is a treasure'
   },
   {
-    gradient: 'linear-gradient(135deg,#1a2540 0%,#3a5080 50%,#7a9ab5 100%)',
-    icon: '🌷',
-    caption: 'A moment we will always cherish'
+    img: 'IMG_20250407_204358.jpg',
+    caption: 'Your smile lights up every room'
   },
   {
-    gradient: 'linear-gradient(135deg,#2a1a30 0%,#6a4070 50%,#c8a0c0 100%)',
-    icon: '💐',
+    img: 'IMG_20250407_204511.jpg',
+    caption: 'Side by side or miles apart, always in my heart'
+  },
+  {
+    img: 'IMG_20250421_141036.jpg',
+    caption: 'The best adventures are the ones with you'
+  },
+  {
+    img: 'IMG_20250426_235329.jpg',
+    caption: 'Thank you for always being there'
+  },
+  {
+    img: 'IMG_20250426_235341.jpg',
+    caption: 'Every flower blooms because of you'
+  },
+  {
+    img: 'IMG_20250501_111541.jpg',
+    caption: 'Your warmth is the light I always come home to'
+  },
+  {
+    img: 'IMG_20250501_142321.jpg',
+    caption: 'A thousand memories, each one perfect'
+  },
+  {
+    img: 'IMG_20250513_122030.jpg',
+    caption: 'You make ordinary days feel magical'
+  },
+  {
+    img: 'IMG_20250602_094444.jpg',
     caption: 'Thank you for everything, Mum'
   },
   {
-    gradient: 'linear-gradient(135deg,#1a2a1a 0%,#3a6040 50%,#80b090 100%)',
-    icon: '🌿',
-    caption: 'Love that grows stronger every day'
+    img: 'IMG_20250608_135615.jpg',
+    caption: 'Love that grows stronger with every season'
   },
   {
-    gradient: 'linear-gradient(135deg,#2a2010 0%,#7a6030 50%,#c8a060 100%)',
-    icon: '✨',
+    img: 'IMG_20250829_212809.jpg',
     caption: 'You are my forever sunshine'
+  },
+  {
+    img: 'IMG_20250830_153119.jpg',
+    caption: 'No words are grand enough — but I love you'
+  },
+  {
+    img: 'IMG_20250927_134102.jpg',
+    caption: 'Happy Mother\'s Day, with all my heart'
   }
 ];
 
-/* ── BUILD SLIDES ── */
 const container = document.getElementById('slidesContainer');
 const dotsEl    = document.getElementById('dots');
+let current = 0, autoTimer = null;
+const DURATION = 4200;
 
+/* build */
 slides.forEach((s, i) => {
   const slide = document.createElement('div');
-  slide.className = 'slide' + (i === 0 ? ' active' : '');
-  slide.dataset.index = i;
+  slide.className = 'slide ' + (i === 0 ? 'active' : 'offscreen-right');
 
-  if (s.img) {
-    slide.innerHTML = `
-      <img class="slide-img" src="${s.img}" alt="Memory ${i+1}" draggable="false">
-      <div class="slide-caption"><p class="slide-caption-text">${s.caption}</p></div>`;
-  } else {
-    slide.style.background = s.gradient;
-    slide.innerHTML = `
-      <div class="slide-placeholder">
-        <svg class="placeholder-icon" viewBox="0 0 64 64" fill="none">
-          <circle cx="32" cy="24" r="12" stroke="white" stroke-width="1.5"/>
-          <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
-          <path d="M32 36 L28 48 L32 45 L36 48 Z" fill="white" opacity="0.4"/>
-        </svg>
-        <p class="placeholder-text">${s.caption}</p>
-      </div>
-      <div class="slide-caption"><p class="slide-caption-text">${s.caption}</p></div>`;
-  }
+  const img = document.createElement('img');
+  img.className = 'slide-img';
+  img.src = s.img;
+  img.alt = 'Memory ' + (i + 1);
+  img.draggable = false;
 
+  const cap = document.createElement('div');
+  cap.className = 'slide-caption';
+  cap.innerHTML = '<p class="slide-caption-text">' + s.caption + '</p>';
+
+  slide.appendChild(img);
+  slide.appendChild(cap);
   container.appendChild(slide);
 
   const dot = document.createElement('div');
   dot.className = 'dot' + (i === 0 ? ' active' : '');
-  dot.addEventListener('click', () => goToSlide(i));
+  dot.addEventListener('click', () => { stopAuto(); goToSlide(i); startAuto(); });
   dotsEl.appendChild(dot);
 });
 
-/* ── SLIDESHOW LOGIC ── */
-let current  = 0;
-let autoTimer = null;
-const DURATION = 4000;
+function goToSlide(next) {
+  if (next === current) return;
+  const sl = container.querySelectorAll('.slide');
+  const dt = dotsEl.querySelectorAll('.dot');
+  const dir = next > current ? 1 : -1;
 
-function goToSlide(n) {
-  const allSlides = container.querySelectorAll('.slide');
-  const allDots   = dotsEl.querySelectorAll('.dot');
-  allSlides[current].className = 'slide prev';
-  allDots[current].className = 'dot';
-  current = (n + slides.length) % slides.length;
-  allSlides[current].className = 'slide active';
-  allDots[current].className = 'dot active';
-  setTimeout(() => {
-    container.querySelectorAll('.slide.prev').forEach(s => s.classList.remove('prev'));
-  }, 900);
+  sl[current].className = 'slide ' + (dir > 0 ? 'exit-left' : 'exit-right');
+  dt[current].className = 'dot';
+
+  /* snap new slide to the waiting position, force reflow, then activate */
+  sl[next].className = 'slide ' + (dir > 0 ? 'offscreen-right' : 'offscreen-left');
+  sl[next].getBoundingClientRect();
+  sl[next].className = 'slide active';
+  dt[next].className = 'dot active';
+
+  current = next;
 }
 
-function nextSlide() { goToSlide(current + 1); }
-function prevSlide() { goToSlide(current - 1); }
+function nextSlide() { goToSlide((current + 1) % slides.length); }
+function prevSlide()  { goToSlide((current - 1 + slides.length) % slides.length); }
+function startAuto()  { clearInterval(autoTimer); autoTimer = setInterval(nextSlide, DURATION); }
+function stopAuto()   { clearInterval(autoTimer); }
 
-function startAuto() {
-  clearInterval(autoTimer);
-  autoTimer = setInterval(nextSlide, DURATION);
-}
-
-function stopAuto() { clearInterval(autoTimer); }
-
-/* ── TOUCH/SWIPE ── */
-let touchStartX = 0;
-let touchStartY = 0;
-let isDragging  = false;
-
-container.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
-  isDragging  = false;
-}, { passive: true });
-
-container.addEventListener('touchmove', e => {
-  const dx = e.touches[0].clientX - touchStartX;
-  const dy = e.touches[0].clientY - touchStartY;
-  if (Math.abs(dx) > Math.abs(dy)) isDragging = true;
-}, { passive: true });
-
-container.addEventListener('touchend', e => {
-  if (!isDragging) return;
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  if (Math.abs(dx) > 40) {
-    stopAuto();
-    dx < 0 ? nextSlide() : prevSlide();
-    startAuto();
-  }
+/* touch */
+let tx = 0, dragging = false;
+container.addEventListener('touchstart', e => { tx = e.touches[0].clientX; dragging = false; }, { passive: true });
+container.addEventListener('touchmove',  e => { if (Math.abs(e.touches[0].clientX - tx) > 10) dragging = true; }, { passive: true });
+container.addEventListener('touchend',   e => {
+  const dx = e.changedTouches[0].clientX - tx;
+  if (dragging && Math.abs(dx) > 40) { stopAuto(); dx < 0 ? nextSlide() : prevSlide(); startAuto(); }
 });
 
-/* ── MOUSE DRAG (desktop) ── */
-let mouseStartX = 0;
-container.addEventListener('mousedown', e => { mouseStartX = e.clientX; });
-container.addEventListener('mouseup', e => {
-  const dx = e.clientX - mouseStartX;
-  if (Math.abs(dx) > 40) {
-    stopAuto();
-    dx < 0 ? nextSlide() : prevSlide();
-    startAuto();
-  }
+/* mouse */
+let mx = 0;
+container.addEventListener('mousedown', e => mx = e.clientX);
+container.addEventListener('mouseup',   e => {
+  const dx = e.clientX - mx;
+  if (Math.abs(dx) > 40) { stopAuto(); dx < 0 ? nextSlide() : prevSlide(); startAuto(); }
 });
 
-/* ── PAGE TRANSITIONS ── */
+/* page nav */
 function goToPage2() {
   document.getElementById('page1').classList.add('hidden');
   const p2 = document.getElementById('page2');
@@ -655,73 +402,48 @@ function goToPage1() {
   }, 900);
 }
 
-/* ── PETALS ── */
-function generatePetals(containerId, dark) {
-  const el = document.getElementById(containerId);
-  if (el.childElementCount > 0) return;
-  const colors = dark
-    ? ['rgba(201,123,132,0.4)', 'rgba(200,169,126,0.3)', 'rgba(255,255,255,0.15)']
-    : ['rgba(201,123,132,0.45)', 'rgba(242,213,216,0.7)', 'rgba(200,169,126,0.3)'];
-
+/* petals */
+function generatePetals(id, dark) {
+  const el = document.getElementById(id);
+  if (!el || el.childElementCount > 0) return;
+  const c = dark
+    ? ['rgba(201,123,132,0.35)','rgba(200,169,126,0.25)','rgba(255,255,255,0.1)']
+    : ['rgba(201,123,132,0.45)','rgba(242,213,216,0.65)','rgba(200,169,126,0.3)'];
   for (let i = 0; i < 18; i++) {
     const p = document.createElement('div');
     p.className = 'petal';
-    const size = 6 + Math.random() * 12;
-    p.style.cssText = `
-      width:${size}px; height:${size*0.6}px;
-      left:${Math.random()*100}%;
-      background:${colors[Math.floor(Math.random()*colors.length)]};
-      animation-duration:${6+Math.random()*8}s;
-      animation-delay:${Math.random()*8}s;
-      border-radius:${40+Math.random()*30}% ${60-Math.random()*20}% ${40+Math.random()*30}% ${60-Math.random()*20}%;
-    `;
+    const sz = 6 + Math.random() * 12;
+    p.style.cssText = `width:${sz}px;height:${sz*.6}px;left:${Math.random()*100}%;background:${c[~~(Math.random()*c.length)]};animation-duration:${6+Math.random()*8}s;animation-delay:${Math.random()*8}s;border-radius:${40+Math.random()*30}% ${60-Math.random()*20}% ${40+Math.random()*30}% ${60-Math.random()*20}%;`;
     el.appendChild(p);
   }
 }
-
 generatePetals('petals1', false);
 
-/* ── CONFETTI BURST ── */
+/* confetti */
 function launchConfetti() {
   const canvas = document.getElementById('confetti-canvas');
   const ctx = canvas.getContext('2d');
-  canvas.width  = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const colors = ['#c97b84','#c8a97e','#f2d5d8','#ffffff','#e8d5b7','#9a5a63'];
-  const particles = Array.from({length: 90}, () => ({
-    x: Math.random() * canvas.width,
-    y: -10 - Math.random() * 60,
-    w: 5 + Math.random() * 7,
-    h: 3 + Math.random() * 4,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    speed: 2.5 + Math.random() * 3,
-    angle: Math.random() * Math.PI * 2,
-    spin:  (Math.random() - 0.5) * 0.15,
-    drift: (Math.random() - 0.5) * 1.5,
-    opacity: 0.8 + Math.random() * 0.2
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+  const cols = ['#c97b84','#c8a97e','#f2d5d8','#ffffff','#e8d5b7','#9a5a63'];
+  const pts = Array.from({length: 90}, () => ({
+    x: Math.random()*canvas.width, y: -10-Math.random()*60,
+    w: 5+Math.random()*7, h: 3+Math.random()*4,
+    color: cols[~~(Math.random()*cols.length)],
+    speed: 2.5+Math.random()*3, angle: Math.random()*Math.PI*2,
+    spin: (Math.random()-.5)*.15, drift: (Math.random()-.5)*1.5
   }));
-
-  let frame = 0;
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => {
-      p.y    += p.speed;
-      p.x    += p.drift;
-      p.angle += p.spin;
-      ctx.save();
-      ctx.globalAlpha = Math.max(0, p.opacity - frame / 120);
-      ctx.translate(p.x + p.w/2, p.y + p.h/2);
-      ctx.rotate(p.angle);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
-      ctx.restore();
+  let f = 0;
+  (function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    pts.forEach(p => {
+      p.y+=p.speed; p.x+=p.drift; p.angle+=p.spin;
+      ctx.save(); ctx.globalAlpha=Math.max(0,.9-f/120);
+      ctx.translate(p.x+p.w/2,p.y+p.h/2); ctx.rotate(p.angle);
+      ctx.fillStyle=p.color; ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h); ctx.restore();
     });
-    frame++;
-    if (frame < 140) requestAnimationFrame(draw);
-    else ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
-  draw();
+    if(++f<140) requestAnimationFrame(draw);
+    else ctx.clearRect(0,0,canvas.width,canvas.height);
+  })();
 }
 </script>
 </body>
