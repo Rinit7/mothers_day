@@ -85,110 +85,104 @@
   #page2.active .header2-title   { opacity: 1; transform: translateY(0); }
   #page2.active .gold-line        { opacity: 1; }
 
-  /* ══ SLIDESHOW ══ */
+  /* ══ PEEK CAROUSEL ══ */
   .slideshow-wrap {
     position: relative; z-index: 2;
     width: 100%; flex: 1;
     display: flex; flex-direction: column;
-    padding: 0 0 2rem;
+    justify-content: center;
+    padding: 0 0 1.5rem;
     min-height: 0;
+    overflow: hidden; /* clips peeking cards at screen edge */
   }
 
   /*
-    THE CARD — rounded box with side margins, exactly like the original.
-    overflow:hidden makes it a viewport; images travel across from outside.
+    The track slides left/right as a whole unit.
+    Each card is a fixed-width item sitting inline.
+    The track is centred on the active card via JS transform.
   */
-  .slides-container {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-    margin: 0 1.5rem;
-    border-radius: 24px;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(200,169,126,0.2);
-    background: #1a0d10;
+  .carousel-track {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    transition: transform 0.52s cubic-bezier(0.77, 0, 0.175, 1);
+    will-change: transform;
+    padding: 12px 0;  /* room for scale + shadow */
   }
 
-  /* slide is a full-card layer — no transition on the wrapper itself */
+  /* Each card — fixed aspect ratio 4:3, width = 72vw so ~14vw peeks each side */
   .slide {
-    position: absolute;
-    inset: 0;
-    border-radius: 24px;
+    flex: 0 0 72vw;
+    width: 72vw;
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
     overflow: hidden;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+    transition: transform 0.52s cubic-bezier(0.77,0,0.175,1),
+                box-shadow 0.52s ease,
+                opacity 0.52s ease;
+    opacity: 0.45;
+    transform: scale(0.88);
+    cursor: pointer;
+    flex-shrink: 0;
   }
 
-  /*
-    The image moves horizontally using translateX.
-    100vw = full screen width, so it starts completely off-screen
-    regardless of the card's own width.
-  */
+  /* active card is full size, fully opaque */
+  .slide.active {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.65), 0 0 0 1px rgba(200,169,126,0.25);
+  }
+
   .slide-img {
-    position: absolute;
-    inset: 0;
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
-    will-change: transform;
-    transform: translateX(100vw);      /* default: off-screen right */
-    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  /* active: image is centred in card */
-  .slide.active .slide-img {
-    transform: translateX(0);
-  }
-
-  /* exit to the left */
-  .slide.exit-left .slide-img {
-    transform: translateX(-100vw);
-    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  /* exit to the right (going backwards) */
-  .slide.exit-right .slide-img {
-    transform: translateX(100vw);
-    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  /* waiting off-screen right — no transition so snap is instant */
-  .slide.offscreen-right .slide-img {
-    transform: translateX(100vw);
-    transition: none;
-  }
-
-  /* waiting off-screen left */
-  .slide.offscreen-left .slide-img {
-    transform: translateX(-100vw);
-    transition: none;
-  }
-
-  /* caption fades in once slide is active */
-  .slide-caption {
-    position: absolute; bottom: 0; left: 0; right: 0;
-    padding: 3rem 1.5rem 1.5rem;
-    background: linear-gradient(to top, rgba(10,4,6,0.82) 0%, transparent 100%);
-    z-index: 4;
-    opacity: 0;
-    transition: opacity 0.45s ease 0.28s;
     pointer-events: none;
+    user-select: none;
   }
-  .slide.active .slide-caption { opacity: 1; }
 
-  .slide-caption-text {
+  /* caption below the active card */
+  .caption-area {
+    text-align: center;
+    padding: 1rem 2rem 0;
+    min-height: 2.6rem;
+  }
+
+  .caption-text {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
-    font-size: 1.05rem;
-    color: rgba(255,255,255,0.92);
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
     line-height: 1.55;
-    text-align: center;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
   }
+  .caption-text.visible { opacity: 1; transform: translateY(0); }
 
   /* dots */
-  .dots { display: flex; gap: 6px; justify-content: center; padding: 1.1rem 0 0; }
-  .dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(200,169,126,0.3); transition: all 0.4s ease; cursor: pointer; }
+  .dots {
+    display: flex; gap: 6px; justify-content: center;
+    padding: 0.9rem 0 0;
+  }
+  .dot {
+    width: 5px; height: 5px; border-radius: 50%;
+    background: rgba(200,169,126,0.3);
+    transition: all 0.4s ease; cursor: pointer;
+  }
   .dot.active { background: var(--gold); width: 20px; border-radius: 3px; }
 
   /* back btn */
-  .back-btn { position: absolute; top: 1.2rem; left: 1.2rem; z-index: 10; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.7); border-radius: 50%; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+  .back-btn {
+    position: absolute; top: 1.2rem; left: 1.2rem; z-index: 10;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.7); border-radius: 50%;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; transition: all 0.3s;
+  }
   .back-btn:hover { background: rgba(255,255,255,0.13); color: white; }
 
   #confetti-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 100; }
@@ -242,84 +236,47 @@
   </div>
 
   <div class="slideshow-wrap">
-    <div class="slides-container" id="slidesContainer"></div>
+    <div class="carousel-track" id="carouselTrack"></div>
+    <div class="caption-area"><p class="caption-text" id="captionText"></p></div>
     <div class="dots" id="dots"></div>
   </div>
 </div>
 
 <script>
-/*
-  Swap any img URL with your own photo path, e.g. 'mum-birthday.jpg'
-  These are beautiful Unsplash placeholders in the meantime.
-*/
 const slides = [
-  {
-    img: 'IMG_20241216_222153.jpg',
-    caption: 'Every moment with you is a treasure'
-  },
-  {
-    img: 'IMG_20250407_204358.jpg',
-    caption: 'Your smile lights up every room'
-  },
-  {
-    img: 'IMG_20250407_204511.jpg',
-    caption: 'Side by side or miles apart, always in my heart'
-  },
-  {
-    img: 'IMG_20250421_141036.jpg',
-    caption: 'The best adventures are the ones with you'
-  },
-  {
-    img: 'IMG_20250426_235329.jpg',
-    caption: 'Thank you for always being there'
-  },
-  {
-    img: 'IMG_20250426_235341.jpg',
-    caption: 'Every flower blooms because of you'
-  },
-  {
-    img: 'IMG_20250501_111541.jpg',
-    caption: 'Your warmth is the light I always come home to'
-  },
-  {
-    img: 'IMG_20250501_142321.jpg',
-    caption: 'A thousand memories, each one perfect'
-  },
-  {
-    img: 'IMG_20250513_122030.jpg',
-    caption: 'You make ordinary days feel magical'
-  },
-  {
-    img: 'IMG_20250602_094444.jpg',
-    caption: 'Thank you for everything, Mum'
-  },
-  {
-    img: 'IMG_20250608_135615.jpg',
-    caption: 'Love that grows stronger with every season'
-  },
-  {
-    img: 'IMG_20250829_212809.jpg',
-    caption: 'You are my forever sunshine'
-  },
-  {
-    img: 'IMG_20250830_153119.jpg',
-    caption: 'No words are grand enough — but I love you'
-  },
-  {
-    img: 'IMG_20250927_134102.jpg',
-    caption: 'Happy Mother\'s Day, with all my heart'
-  }
+  { img: 'IMG_20241216_222153.jpg',  caption: 'Every moment with you is a treasure' },
+  { img: 'IMG_20250407_204358.jpg',  caption: 'Your smile lights up every room' },
+  { img: 'IMG_20250407_204511.jpg',  caption: 'Side by side or miles apart, always in my heart' },
+  { img: 'IMG_20250421_141036.jpg',  caption: 'The best adventures are the ones with you' },
+  { img: 'IMG_20250426_235329.jpg',  caption: 'Thank you for always being there' },
+  { img: 'IMG_20250426_235341.jpg',  caption: 'Every flower blooms because of you' },
+  { img: 'IMG_20250501_111541.jpg',  caption: 'Your warmth is the light I always come home to' },
+  { img: 'IMG_20250501_142321.jpg',  caption: 'A thousand memories, each one perfect' },
+  { img: 'IMG_20250513_122030.jpg',  caption: 'You make ordinary days feel magical' },
+  { img: 'IMG_20250602_094444.jpg',  caption: 'Thank you for everything, Mum' },
+  { img: 'IMG_20250608_135615.jpg',  caption: 'Love that grows stronger with every season' },
+  { img: 'IMG_20250829_212809.jpg',  caption: 'You are my forever sunshine' },
+  { img: 'IMG_20250830_153119.jpg',  caption: 'No words are grand enough — but I love you' },
+  { img: 'IMG_20250927_134102.jpg',  caption: "Happy Mother's Day, with all my heart" }
 ];
 
-const container = document.getElementById('slidesContainer');
-const dotsEl    = document.getElementById('dots');
-let current = 0, autoTimer = null;
-const DURATION = 4200;
+const track      = document.getElementById('carouselTrack');
+const dotsEl     = document.getElementById('dots');
+const captionEl  = document.getElementById('captionText');
+let current  = 0;
+let autoTimer = null;
+const DURATION = 4000;
 
-/* build */
+/* card width + gap — must match CSS */
+const CARD_VW  = 72;   /* vw */
+const GAP_PX   = 14;   /* px */
+
+function cardW() { return window.innerWidth * CARD_VW / 100; }
+
+/* build cards */
 slides.forEach((s, i) => {
   const slide = document.createElement('div');
-  slide.className = 'slide ' + (i === 0 ? 'active' : 'offscreen-right');
+  slide.className = 'slide' + (i === 0 ? ' active' : '');
 
   const img = document.createElement('img');
   img.className = 'slide-img';
@@ -327,13 +284,9 @@ slides.forEach((s, i) => {
   img.alt = 'Memory ' + (i + 1);
   img.draggable = false;
 
-  const cap = document.createElement('div');
-  cap.className = 'slide-caption';
-  cap.innerHTML = '<p class="slide-caption-text">' + s.caption + '</p>';
-
   slide.appendChild(img);
-  slide.appendChild(cap);
-  container.appendChild(slide);
+  slide.addEventListener('click', () => { if (i !== current) { stopAuto(); goToSlide(i); startAuto(); } });
+  track.appendChild(slide);
 
   const dot = document.createElement('div');
   dot.className = 'dot' + (i === 0 ? ' active' : '');
@@ -341,52 +294,75 @@ slides.forEach((s, i) => {
   dotsEl.appendChild(dot);
 });
 
-function goToSlide(next) {
-  if (next === current) return;
-  const sl = container.querySelectorAll('.slide');
-  const dt = dotsEl.querySelectorAll('.dot');
-  const dir = next > current ? 1 : -1;
-
-  sl[current].className = 'slide ' + (dir > 0 ? 'exit-left' : 'exit-right');
-  dt[current].className = 'dot';
-
-  /* snap new slide to the waiting position, force reflow, then activate */
-  sl[next].className = 'slide ' + (dir > 0 ? 'offscreen-right' : 'offscreen-left');
-  sl[next].getBoundingClientRect();
-  sl[next].className = 'slide active';
-  dt[next].className = 'dot active';
-
-  current = next;
+/* position track so active card is centred */
+function positionTrack(idx, animated) {
+  const cw   = cardW();
+  const vw   = window.innerWidth;
+  /* offset = how much to shift left so card[idx] is centred */
+  const offset = idx * (cw + GAP_PX) - (vw - cw) / 2;
+  track.style.transition = animated
+    ? 'transform 0.52s cubic-bezier(0.77,0,0.175,1)'
+    : 'none';
+  track.style.transform = `translateX(${-offset}px)`;
 }
 
-function nextSlide() { goToSlide((current + 1) % slides.length); }
-function prevSlide()  { goToSlide((current - 1 + slides.length) % slides.length); }
+function updateCaption(idx) {
+  captionEl.classList.remove('visible');
+  setTimeout(() => {
+    captionEl.textContent = slides[idx].caption;
+    captionEl.classList.add('visible');
+  }, 160);
+}
+
+function goToSlide(next) {
+  const sl = track.querySelectorAll('.slide');
+  const dt = dotsEl.querySelectorAll('.dot');
+  sl[current].classList.remove('active');
+  dt[current].classList.remove('active');
+  current = (next + slides.length) % slides.length;
+  sl[current].classList.add('active');
+  dt[current].classList.add('active');
+  positionTrack(current, true);
+  updateCaption(current);
+}
+
+function nextSlide() { goToSlide(current + 1); }
+function prevSlide()  { goToSlide(current - 1); }
 function startAuto()  { clearInterval(autoTimer); autoTimer = setInterval(nextSlide, DURATION); }
 function stopAuto()   { clearInterval(autoTimer); }
 
-/* touch */
+/* initial position (no animation) */
+positionTrack(0, false);
+updateCaption(0);
+
+/* reposition on resize */
+window.addEventListener('resize', () => positionTrack(current, false));
+
+/* touch swipe on track */
 let tx = 0, dragging = false;
-container.addEventListener('touchstart', e => { tx = e.touches[0].clientX; dragging = false; }, { passive: true });
-container.addEventListener('touchmove',  e => { if (Math.abs(e.touches[0].clientX - tx) > 10) dragging = true; }, { passive: true });
-container.addEventListener('touchend',   e => {
+track.addEventListener('touchstart', e => { tx = e.touches[0].clientX; dragging = false; }, { passive: true });
+track.addEventListener('touchmove',  e => { if (Math.abs(e.touches[0].clientX - tx) > 8) dragging = true; }, { passive: true });
+track.addEventListener('touchend',   e => {
   const dx = e.changedTouches[0].clientX - tx;
   if (dragging && Math.abs(dx) > 40) { stopAuto(); dx < 0 ? nextSlide() : prevSlide(); startAuto(); }
 });
 
-/* mouse */
-let mx = 0;
-container.addEventListener('mousedown', e => mx = e.clientX);
-container.addEventListener('mouseup',   e => {
+/* mouse drag */
+let mx = 0, mdown = false;
+track.addEventListener('mousedown', e => { mx = e.clientX; mdown = true; });
+track.addEventListener('mouseup',   e => {
+  if (!mdown) return; mdown = false;
   const dx = e.clientX - mx;
   if (Math.abs(dx) > 40) { stopAuto(); dx < 0 ? nextSlide() : prevSlide(); startAuto(); }
 });
+track.addEventListener('mouseleave', () => { mdown = false; });
 
 /* page nav */
 function goToPage2() {
   document.getElementById('page1').classList.add('hidden');
   const p2 = document.getElementById('page2');
   p2.classList.remove('hidden');
-  setTimeout(() => p2.classList.add('active'), 30);
+  setTimeout(() => { p2.classList.add('active'); positionTrack(current, false); }, 30);
   startAuto();
   launchConfetti();
   generatePetals('petals2', true);
